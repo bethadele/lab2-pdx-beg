@@ -22,7 +22,7 @@ Upload lab2.js to Canvas.
 ##### Option 2
 Submit a link to a pull request. To do this, do the following:
 
-1. Open your terminal and navigate to the feb-lab2-beg-track directory.
+1. Open your terminal and navigate to the lab2-pdx-beg directory.
 2. Make a new branch and switch to it: `git checkout -b yourBranchNameHere`
 3. Stage all your files for the commit: `git add .`  (Yes, you need that period.)
 4. Make sure that you're on the correct branch, and that the files are indeed staged: `git status`
