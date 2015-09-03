@@ -46,8 +46,27 @@ function assert(expression, failureMessage) {
 
  TODO: Then, use a loop to calculate how long it took the blob to finish
  with Dowington.
-*/
 
+ 1. what is the "maximum" condition in a loop (upper limit)
+ 2. while loop
+ 3. try things out with console.log
+*/
+function Blob(name) {
+  this.name = name;
+}
+
+var blob = new Blob("blob");
+
+var Dowington = 1000;
+
+var hours = 0;
+
+var consumesPerHour = 1;
+
+while (Dowington > 0) {
+      Dowington -= consumesPerHour;
+      hours++;
+    }
 var hoursSpentInDowington; // TODO: assign me the value of the
                            // above calculation
 
@@ -72,20 +91,23 @@ assert(blob.hoursToOoze(1000, 1) === hoursSpentInDowington,
 var hello = {
   klingon: "nuqneH",  // home planet is Qo"noS
   romulan: "Jolan\"tru", // home planet is Romulus
-  "federation standard": "hello" // home planet is Earth
+  federation standard: "hello" // home planet is Earth
 };
 
 // TODO: define a constructor that creates objects to represent
 // sentient beings. They have a home planet, a language that they
 // speak, and method called sayHello.
 
-function SentientBeing () {
+function SentientBeing (homeplanet, language) {
+  this.homeplanet = homeplanet;
+  this.language = language;
   // TODO: specify a home planet and a language
   // you'll need to add parameters to this constructor
 }
 
 // sb is a SentientBeing object
-function sayHello (sb) {
+SentientBeing.prototype.sayHello = function (sb) {
+  console.log(hello[this.language]);
     // TODO: say hello prints out (console.log's) hello in the
     // language of the speaker, but returns it in the language
     // of the listener (the sb parameter above).
@@ -95,11 +117,13 @@ function sayHello (sb) {
     //TODO: put this on the SentientBeing prototype
   }
 
+
+
 // TODO: create three SentientBeings, one for each language in the
 // 'hello' object above.
-var klingon = new SentientBeing(); // TODO: fix me
-var romulan = new SentientBeing(); // TODO: fix me
-var human = new SentientBeing(); // TODO: fix me
+var klingon = new SentientBeing('Qo"noS', 'klingon'); // TODO: fix me
+var romulan = new SentientBeing('Romulus', 'romulan'); // TODO: fix me
+var human = new SentientBeing('Earth', 'Engish'); // TODO: fix me
 
 assert((new Human()).sayHello(new Klingon()) === "nuqneH",
   "the klingon should hear nuqneH");
