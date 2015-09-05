@@ -39,16 +39,68 @@ function assert(expression, failureMessage) {
         1          |       2/hour
         2          |       3/hour
         3          |       4/hour
-
- TODO: First, make a constructor function, called Blob, that makes blobs.
-
- TODO: Next, create an instance of Blob named blob.
-
- TODO: Then, use a loop to calculate how long it took the blob to finish
- with Dowington.
 */
 
-var hoursSpentInDowington; // TODO: assign me the value of the
+/*Take down information given in the problem.
+Class - City:
+Object - dowington
+population : 1000
+populationRemaining:1000
+
+Class Blob
+name:blob
+peopleConsumed:0
+beginingConsumptionRate:0
+currentConsumptionRate:0
+hourlyConsumptionRate:currentComsumptionRate++
+hoursSpendInDowington
+
+ TODO: First, make a constructor function, name it Blob, that makes blobs.
+
+ */
+//Blob is a function that use an internal function
+
+//create array that contains blobs
+blobs = [];
+//create an instance of a blob and assign to global var blobs
+
+Blob = function (index, name) {
+  blobs[index] = {
+    name : name
+  };
+}
+
+// TODO: Next, create an instance of Blob named blob.
+//blob is a global variable that takes the result of an IIFE of Blob
+Blob(0, "blob")
+blob = blobs[0]
+
+//TODO: Then, use a loop to calculate how long it took the blob to finish with Dowington.
+
+//add properties to Blob
+
+
+//Variables
+blob.peopleConsumed = 0;
+blob.hoursInCity = 0;
+blob.consumptionByHour = [];
+blob.peopleRemaining = blob.targetCityPopulation - blob.peopleConsumed;
+blob.targetCity = "dowington";
+blob.targetCityPopulation = 1000;
+blob.currentConsumptionRate = 1;
+blob.eat = function() {
+  while (blob.targetCityPopulation > 0) {
+    blob.consumptionByHour[blob.hoursInCity] = blob.currentConsumptionRate;
+    blob.targetCityPopulation -= blob.currentConsumptionRate;
+    blob.hoursInCity++;
+    blob.currentConsumptionRate++;
+    console.log("Blob has been in city for " + blob.hoursInCity + " hours")
+  }
+}
+blob.eat();
+
+*/
+var hoursSpentInDowington = blob.hoursInCity; // TODO: assign me the value of the
                            // above calculation
 
 // Now, write a method that takes a population for an arbitrary
@@ -56,8 +108,13 @@ var hoursSpentInDowington; // TODO: assign me the value of the
 // of hours the blob needs to ooze its way through that town.
 
 function hoursToOoze(population, peoplePerHour) {
-  // TODO: implement me based on the instructions above. Be sure to then assign me to the Blob's prototype.
+  this.targetCityPopulation = population;
+  this.currentConsumptionRate = peoplePerHour;
+  return this.eat();
 }
+  // TODO: implement me based on the instructions above. Be sure to then assign me to the Blob's prototype.
+blob.hoursToOoze = hoursToOoze
+
 
 assert(blob.hoursToOoze(0, 1) === 0, "no people means no time needed.");
 assert(blob.hoursToOoze(1000, 1) === hoursSpentInDowington,
