@@ -51,22 +51,21 @@ function assert(expression, failureMessage) {
  2. while loop
  3. try things out with console.log
 */
-function Blob(name) {
+function Blob(name, consumesPerHour) {
   this.name = name;
+  this.consumesPerHour = consumesPerHour;
 }
 
-var blob = new Blob("blob");
+var blob = new Blob("blob", 1);
 
 var Dowington = 1000;
-
 var hours = 0;
 
-var consumesPerHour = 1;
+ while ( Dowington > 0 ) {
+        Dowington = Dowington - this.consumesPerHour;
+        hours++;
+ }
 
-while (Dowington > 0) {
-      Dowington -= consumesPerHour;
-      hours++;
-    }
 var hoursSpentInDowington; // TODO: assign me the value of the
                            // above calculation
 
