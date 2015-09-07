@@ -60,6 +60,7 @@ function Blob(name) {
    this.hours = 0;
 
    this.eating = function(pop){
+      this.hours = 0;
       while(pop > 0) {
         pop -= this.peopleConsumed;
         this.peopleConsumed++;
@@ -70,7 +71,7 @@ function Blob(name) {
 };
 var blob = new Blob("blob");
 
-var hoursSpentInDowington = 45; // TODO: assign me the value of the
+var hoursSpentInDowington = blob.eating(dowington); // TODO: assign me the value of the
                            // above calculation
 
 // Now, write a method that takes a population for an arbitrary
@@ -78,6 +79,7 @@ var hoursSpentInDowington = 45; // TODO: assign me the value of the
 // of hours the blob needs to ooze its way through that town.
 
 Blob.prototype.hoursToOoze = function hoursToOoze(population, peoplePerHour) {
+  this.hours = 0;
   while(population > 0) {
     population -= peoplePerHour;
     peoplePerHour++;
