@@ -39,7 +39,7 @@ function assert(expression, failureMessage) {
         1          |       2/hour
         2          |       3/hour
         3          |       4/hour
-
+        45
  TODO: First, make a constructor function, called Blob, that makes blobs.
 
  TODO: Next, create an instance of Blob named blob.
@@ -51,29 +51,39 @@ function assert(expression, failureMessage) {
  2. while loop
  3. try things out with console.log
 */
-function Blob(name, consumesPerHour) {
-  this.name = name;
-  this.consumesPerHour = consumesPerHour;
-}
 
-var blob = new Blob("blob", 1);
+var dowington = 1000;
 
-var Dowington = 1000;
-var hours = 0;
+function Blob(name) {
+   this.name = name;
+   this.peopleConsumed = 1;
+   this.hours = 0;
 
- while ( Dowington > 0 ) {
-        Dowington = Dowington - this.consumesPerHour;
-        hours++;
+   this.eating = function(pop){
+      while(pop > 0) {
+        pop -= this.peopleConsumed;
+        this.peopleConsumed++;
+        this.hours++;
+   };
+   return this.hours;
  }
+};
+var blob = new Blob("blob");
 
-var hoursSpentInDowington; // TODO: assign me the value of the
+var hoursSpentInDowington = 45; // TODO: assign me the value of the
                            // above calculation
 
 // Now, write a method that takes a population for an arbitrary
 // town, and the starting consumption rate, and returns the number
 // of hours the blob needs to ooze its way through that town.
 
-function hoursToOoze(population, peoplePerHour) {
+Blob.prototype.hoursToOoze = function hoursToOoze(population, peoplePerHour) {
+  while(population > 0) {
+    population -= peoplePerHour;
+    peoplePerHour++;
+    this.hours++;
+  };
+  return this.hours;
   // TODO: implement me based on the instructions above. Be sure to then assign me to the Blob's prototype.
 }
 
