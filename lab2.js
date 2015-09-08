@@ -102,7 +102,7 @@ assert(blob.hoursToOoze(1000, 1) === hoursSpentInDowington,
 var hello = {
   klingon: "nuqneH",  // home planet is Qo"noS
   romulan: "Jolan\"tru", // home planet is Romulus
-  federation standard: "hello" // home planet is Earth
+  "federation standard": "hello" // home planet is Earth
 };
 
 // TODO: define a constructor that creates objects to represent
@@ -118,7 +118,7 @@ function SentientBeing (homeplanet, language) {
 
 // sb is a SentientBeing object
 SentientBeing.prototype.sayHello = function (sb) {
-  console.log(hello[this.language]);
+  return (hello[sb.language]);
     // TODO: say hello prints out (console.log's) hello in the
     // language of the speaker, but returns it in the language
     // of the listener (the sb parameter above).
@@ -130,13 +130,16 @@ SentientBeing.prototype.sayHello = function (sb) {
 
 
 
+//var human = new Human();
+
+
 // TODO: create three SentientBeings, one for each language in the
 // 'hello' object above.
 var klingon = new SentientBeing('Qo"noS', 'klingon'); // TODO: fix me
 var romulan = new SentientBeing('Romulus', 'romulan'); // TODO: fix me
-var human = new SentientBeing('Earth', 'Engish'); // TODO: fix me
+var human = new SentientBeing('Earth', 'federation standard'); // TODO: fix me
 
-assert((new Human()).sayHello(new Klingon()) === "nuqneH",
+assert(human.sayHello(klingon) === "nuqneH",
   "the klingon should hear nuqneH");
 // TODO: write five more assertions, to complete all the possible
 // greetings between the three types of sentient beings you created above.
@@ -148,13 +151,25 @@ assert((new Human()).sayHello(new Klingon()) === "nuqneH",
 // assertions for each one
 //*********************************************************
 function max(array) {
+  return Math.max.apply(Math, array);
   // TODO: return the largest number in the given array
-}
+};
 
 // TODO: write three more assertions
 assert(max([ 1, 3, 2 ]) === 3, "[1,3,2]");
+assert(max([ 1, 3, 2, -1]) !== 2, "[1,3,2]");
+assert(max([ 1, 3, 2, 5, 4 ]) === 5, "[1,3,2]");
+
 
 function variablify(string) {
+      string.split(" ")
+      .join("")
+     });
+// 1. if there is a space: capitalize the letter after it
+// 2. split the words into array
+// 3. join array without spaces
+
+
   // TODO: you are given a string with several words in it
   // return a corresponding variable name that follows
   // javascript conventions
@@ -162,7 +177,11 @@ function variablify(string) {
   // you might want to use these string methods:
   //  split(), charAt(), toUpperCase()
   // and this array method: join()
-}
+//}
+
+//var one = "one two three";
+//var split = one.split(" ");
+//var next = split.join("");
 
 // TODO: write three more assertions
 assert(variablify("one two three") === "oneTwoThree",
