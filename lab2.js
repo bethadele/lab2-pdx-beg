@@ -15,7 +15,7 @@ To run this file (in the terminal) use: node lab2.js
 // SETUP
 //*********************************************************
 
-// We're going to use this special assert method again to
+// We"re going to use this special assert method again to
 // test our code
 function assert(expression, failureMessage) {
   if (!expression) {
@@ -59,16 +59,16 @@ function Blob(name) {
    this.peopleConsumed = 1;
    this.hours = 0;
 
-   this.eating = function(pop){
+   this.eating = function(pop) {
       this.hours = 0;
-      while(pop > 0) {
+      while (pop > 0) {
         pop -= this.peopleConsumed;
         this.peopleConsumed++;
         this.hours++;
-   };
+   }
    return this.hours;
- }
-};
+ };
+}
 var blob = new Blob("blob");
 
 var hoursSpentInDowington = blob.eating(dowington); // TODO: assign me the value of the
@@ -80,14 +80,14 @@ var hoursSpentInDowington = blob.eating(dowington); // TODO: assign me the value
 
 Blob.prototype.hoursToOoze = function hoursToOoze(population, peoplePerHour) {
   this.hours = 0;
-  while(population > 0) {
+  while (population > 0) {
     population -= peoplePerHour;
     peoplePerHour++;
     this.hours++;
-  };
+  }
   return this.hours;
-  // TODO: implement me based on the instructions above. Be sure to then assign me to the Blob's prototype.
-}
+  // TODO: implement me based on the instructions above. Be sure to then assign me to the Blob"s prototype.
+};
 
 assert(blob.hoursToOoze(0, 1) === 0, "no people means no time needed.");
 assert(blob.hoursToOoze(1000, 1) === hoursSpentInDowington,
@@ -113,31 +113,26 @@ function SentientBeing (homeplanet, language) {
   this.homeplanet = homeplanet;
   this.language = language;
   // TODO: specify a home planet and a language
-  // you'll need to add parameters to this constructor
+  // you"ll need to add parameters to this constructor
 }
 
 // sb is a SentientBeing object
-SentientBeing.prototype.sayHello = function (sb) {
+SentientBeing.prototype.sayHello = function(sb) {
   return (hello[sb.language]);
-    // TODO: say hello prints out (console.log's) hello in the
+    // TODO: say hello prints out (console.log"s) hello in the
     // language of the speaker, but returns it in the language
     // of the listener (the sb parameter above).
-    // use the 'hello' object at the beginning of this exercise
+    // use the "hello" object at the beginning of this exercise
     // to do the translating
 
     //TODO: put this on the SentientBeing prototype
-  }
-
-
-
-//var human = new Human();
-
+  };
 
 // TODO: create three SentientBeings, one for each language in the
-// 'hello' object above.
-var klingon = new SentientBeing('Qo"noS', 'klingon'); // TODO: fix me
-var romulan = new SentientBeing('Romulus', 'romulan'); // TODO: fix me
-var human = new SentientBeing('Earth', 'federation standard'); // TODO: fix me
+// "hello" object above.
+var klingon = new SentientBeing("Qo'noS", "klingon"); // TODO: fix me
+var romulan = new SentientBeing("Romulus", "romulan"); // TODO: fix me
+var human = new SentientBeing("Earth", "federation standard"); // TODO: fix me
 
 assert(human.sayHello(klingon) === "nuqneH",
   "the klingon should hear nuqneH");
@@ -153,13 +148,12 @@ assert(human.sayHello(klingon) === "nuqneH",
 function max(array) {
   return Math.max.apply(Math, array);
   // TODO: return the largest number in the given array
-};
+}
 
 // TODO: write three more assertions
 assert(max([ 1, 3, 2 ]) === 3, "[1,3,2]");
-assert(max([ 1, 3, 2, -1]) !== 2, "[1,3,2]");
+assert(max([ 1, 3, 2, -1 ]) !== 2, "[1,3,2]");
 assert(max([ 1, 3, 2, 5, 4 ]) === 5, "[1,3,2]");
-
 
 function variablify(string) {
 var stringArray = []; // makes an empty array
@@ -167,19 +161,18 @@ var lowCase = string.toLowerCase(); // makes all letters in string lowercase
 var split = lowCase.split(" "); // splits string words into an array
     for (i = 0; i < split.length; i++) { // does "this" statement for every element in array
         if (i > 0) { // excludes the 0 element in array
-            stringArray.push(split[i].charAt(0).toUpperCase()+split[i].slice(1)); // makes the 1st letter in word uppercase then adds it back to word and pushes it into the empty array "stringArray"
+            stringArray.push(split[i].charAt(0).toUpperCase() + split[i].slice(1)); // makes the 1st letter in word uppercase then adds it back to word and pushes it into the empty array "stringArray"
         } else {
             stringArray.push(split[i]); // if its the 0 element just push it into empty array "stringArray"
         }
     }
-     var join = stringArray.join(''); // join array together into a string without spaces
+     var join = stringArray.join(""); // join array together into a string without spaces
      return join; // returns the final product
  }
 
 // 1. if there is a space: capitalize the letter after it
 // 2. split the words into array
 // 3. join array without spaces
-
 
   // TODO: you are given a string with several words in it
   // return a corresponding variable name that follows
@@ -188,12 +181,16 @@ var split = lowCase.split(" "); // splits string words into an array
   // you might want to use these string methods:
   //  split(), charAt(), toUpperCase()
   // and this array method: join()
-//
-
 
 // TODO: write three more assertions
 assert(variablify("one two three") === "oneTwoThree",
   "variablify(\"one two three\")");
+assert(variablify("This IS CraZy") === "thisIsCrazy",
+  "eh not right");
+assert(variablify("ONE MORE TIME") === "oneMoreTime",
+  "nope");
+assert(variablify("hey you GUYS") === "heyYouGuys",
+  "try again, fool");
 
 //*********************************************************
 // PROBLEM 4: Cleanup: 10 points
