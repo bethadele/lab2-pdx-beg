@@ -162,9 +162,10 @@ assert(max([ 1, 3, 2, 5, 4 ]) === 5, "[1,3,2]");
 
 
 function variablify(string) {
-      string.split(" ")
-      .join("")
-     });
+      console.log(string.charAt(0).toUpperCase() + string.slice(1));
+     };
+
+var myString = new variablify("one two three");
 // 1. if there is a space: capitalize the letter after it
 // 2. split the words into array
 // 3. join array without spaces
