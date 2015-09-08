@@ -162,10 +162,20 @@ assert(max([ 1, 3, 2, 5, 4 ]) === 5, "[1,3,2]");
 
 
 function variablify(string) {
-      console.log(string.charAt(0).toUpperCase() + string.slice(1));
-     };
+var stringArray = []; // makes an empty array
+var lowCase = string.toLowerCase(); // makes all letters in string lowercase
+var split = lowCase.split(" "); // splits string words into an array
+    for (i = 0; i < split.length; i++) { // does "this" statement for every element in array
+        if (i > 0) { // excludes the 0 element in array
+            stringArray.push(split[i].charAt(0).toUpperCase()+split[i].slice(1)); // makes the 1st letter in word uppercase then adds it back to word and pushes it into the empty array "stringArray"
+        } else {
+            stringArray.push(split[i]); // if its the 0 element just push it into empty array "stringArray"
+        }
+    }
+     var join = stringArray.join(''); // join array together into a string without spaces
+     return join; // returns the final product
+ }
 
-var myString = new variablify("one two three");
 // 1. if there is a space: capitalize the letter after it
 // 2. split the words into array
 // 3. join array without spaces
@@ -178,11 +188,8 @@ var myString = new variablify("one two three");
   // you might want to use these string methods:
   //  split(), charAt(), toUpperCase()
   // and this array method: join()
-//}
+//
 
-//var one = "one two three";
-//var split = one.split(" ");
-//var next = split.join("");
 
 // TODO: write three more assertions
 assert(variablify("one two three") === "oneTwoThree",
