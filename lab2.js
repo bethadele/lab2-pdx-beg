@@ -48,8 +48,25 @@ function assert(expression, failureMessage) {
  with Dowington.
 */
 
-var hoursSpentInDowington; // TODO: assign me the value of the
-                           // above calculation
+function Blob () {
+}
+
+var blob = new Blob();
+
+var hoursOfConsumption = 0;
+var peopleEaten = 0;
+consumptionRate = 0;
+while (peopleEaten < 1000) {
+  hoursOfConsumption++;
+  consumptionRate++;
+  peopleEaten = peopleEaten + consumptionRate;
+}
+// starting all variables at 0
+// and increasing variables in while loop before peopleEaten calculated
+// makes sure variabes for hours and rate of consumption are correct
+// when we drop out of while loop
+
+var hoursSpentInDowington = hoursOfConsumption; // TODO: assign me the value of the above calculation
 
 // Now, write a method that takes a population for an arbitrary
 // town, and the starting consumption rate, and returns the number
@@ -57,13 +74,34 @@ var hoursSpentInDowington; // TODO: assign me the value of the
 
 function hoursToOoze(population, peoplePerHour) {
   // TODO: implement me based on the instructions above. Be sure to then assign me to the Blob's prototype.
+  var hoursOfConsumption = 0;
+  var peopleEaten = 0;
+  var consumptionRate = peoplePerHour - 1;
+  if (population === 0) {
+    return hoursOfConsumption;
+  }
+  while (peopleEaten < population) {
+    hoursOfConsumption++;
+    consumptionRate++;
+    peopleEaten = peopleEaten + consumptionRate;
+  }
+  return hoursOfConsumption;
 }
+
+Blob.prototype.hoursToOoze = hoursToOoze;
+// though this works I have no idea why. Why isn't this:
+// Blob.prototype.hoursToOoze = hoursToOoze(this.population, this.peoplePerHour);
+// OR Blob.prototype.hoursToOoze() = hoursToOoze();
+// OR Blob.prototype.hoursToOoze = this.hoursToOoze;
 
 assert(blob.hoursToOoze(0, 1) === 0, "no people means no time needed.");
 assert(blob.hoursToOoze(1000, 1) === hoursSpentInDowington,
   "hoursSpentInDowington should match hoursToOoze\"s result for 1000");
 // TODO: write three more assertions like the two above, testing out
 // the hoursToOoze method.
+assert(blob.hoursToOoze(1000, 0) === hoursSpentInDowington + 1, "starting at 0 should only take an extra hour");
+assert(blob.hoursToOoze(1000, 1000) === 1, "1000 people and starting consumption of 1000/hr should take 1 hour");
+assert(blob.hoursToOoze(500, 1000) === 1, "consumption rate higher than population should take 1 hour");
 
 //*********************************************************
 // PROBLEM 2: Universal Translator. 20 points
@@ -79,9 +117,11 @@ var hello = {
 // sentient beings. They have a home planet, a language that they
 // speak, and method called sayHello.
 
-function SentientBeing () {
+function SentientBeing (homePlanet, language) {
   // TODO: specify a home planet and a language
   // you'll need to add parameters to this constructor
+  this.homePlanet = homePlanet;
+  this.language = language;
 }
 
 // sb is a SentientBeing object
@@ -92,19 +132,64 @@ function sayHello (sb) {
     // use the 'hello' object at the beginning of this exercise
     // to do the translating
 
+  // two variables for the speaker and the listener language values
+  var speakerLang = this.language;
+  var listenerLang = sb.language;
+  // prints the greeting in the speakers's language on the console
+  console.log(hello[speakerLang]);
+  // returns the greeting in the listener's language
+  return (hello[listenerLang]);
     //TODO: put this on the SentientBeing prototype
-  }
+}
+SentientBeing.prototype.sayHello = sayHello;
 
 // TODO: create three SentientBeings, one for each language in the
 // 'hello' object above.
-var klingon = new SentientBeing(); // TODO: fix me
-var romulan = new SentientBeing(); // TODO: fix me
-var human = new SentientBeing(); // TODO: fix me
+
+// Created the 3 beings as subClasses/childClasses of SentientBeing
+// 1st - we create each being's constructor
+// 2nd - we set the being's prototype to a new instance of SentientBeing and pass in the home planet and language parameters
+// 3rd - we let the constructor know each being is that specific type of being
+function Klingon () {
+}
+Klingon.prototype = new SentientBeing("Qo\"nos", "klingon");
+Klingon.prototype.constructor = Klingon;
+
+function Human () {
+}
+Human.prototype = new SentientBeing("Earth", "federation standard");
+Human.prototype.constructor = Human;
+
+function Romulan () {
+}
+Romulan.prototype = new SentientBeing("Romulus", "romulan");
+Romulan.prototype.constructor = Romulan;
 
 assert((new Human()).sayHello(new Klingon()) === "nuqneH",
-  "the klingon should hear nuqneH");
+  "the Klingon should hear nuqneH");
 // TODO: write five more assertions, to complete all the possible
 // greetings between the three types of sentient beings you created above.
+
+// for the Human to say hello to the Romulan
+assert((new Human()).sayHello(new Romulan()) === "Jolan\"tru",
+  "the Romulan should hear Jolan\"tru");
+
+// for the Klingon to say hello to the Human
+assert((new Klingon()).sayHello(new Human()) === "hello",
+  "the Human should hear hello");
+
+// for the Klingon to say hello to the Romulan
+assert((new Klingon()).sayHello(new Romulan()) === "Jolan\"tru",
+  "the Romulan should hear Jolan\"tru");
+
+// for the Romulan to say hello to the Human
+assert((new Romulan(
+  )).sayHello(new Human()) === "hello",
+  "the Human should hear hello");
+
+// for the Romulan to say hello to the Klingon
+assert((new Romulan()).sayHello(new Klingon()) === "nuqneH",
+  "the Klingon should hear nuqneH");
 
 //*********************************************************
 // PROBLEM 3: Moar Loops. 20 points.
@@ -112,26 +197,69 @@ assert((new Human()).sayHello(new Klingon()) === "nuqneH",
 // Implement the following functions. Write at least 3
 // assertions for each one
 //*********************************************************
+
 function max(array) {
   // TODO: return the largest number in the given array
+  // for loop to iterate through the items in the array
+  var comparArray = array;
+  var largestNumber = comparArray[0];
+  for (var i = 0; i < comparArray.length; i++) {
+  // INTERESTING!! I discovered that this works even if elements of the
+  // array examined are strings or undefined!!
+    if (comparArray[i] > largestNumber) {
+      largestNumber = comparArray[i];
+    }
+  }
+  return largestNumber;
+  // Why wouldn't I just use Math.max.apply(Math, comparArray)?
+  // Is there a benefit at times to using loops for this?
 }
 
 // TODO: write three more assertions
 assert(max([ 1, 3, 2 ]) === 3, "[1,3,2]");
+assert(max([ -56, -45, -1, -67, -3, "fred", -123234, -65 ]) === -1, "with a string in the array");
+assert(max([ 67, 67, 67, 67 ]) === 67, "all array elements the same number");
+assert(max([ -58978987, -67, "", 56, 14 ]) === 56, "sparse array");
 
+// TODO: you are given a string with several words in it
+// return a corresponding variable name that follows
+// javascript conventions
 function variablify(string) {
-  // TODO: you are given a string with several words in it
-  // return a corresponding variable name that follows
-  // javascript conventions
-  // HINT:
-  // you might want to use these string methods:
-  //  split(), charAt(), toUpperCase()
-  // and this array method: join()
+  // grabs the parameter and converts the string to lowerCase
+  var stringToVariablify = string.toLowerCase();
+  // splits converted string into an array
+  var stringToArray = stringToVariablify.split(" ");
+
+  for (var j = 0; j < stringToArray.length; j++) {
+    // conditional makes sure the first letter is lowerCase and all
+    // successive "words" have the first letter capitalized
+    if (j === 0) {
+      stringToArray[j] = stringToArray[j].charAt(0) + stringToArray[j].slice(1, stringToArray[j].length);
+    }else {
+      stringToArray[j] = (stringToArray[j].charAt(0)).toUpperCase() + stringToArray[j].slice(1, stringToArray[j].length);
+    }
+  }
+
+  // joins the array elements into the javascript variable name
+  var variableFromString = stringToArray.join("");
+  return variableFromString;
 }
+// I am concerned about transforming strings that have characters that are
+// not valid for javascript variables, especially common punctuation.
+// BUT I think that is a MUCH bigger problem than the lab is posing especially
+// since so many unicode variables are acceptable
+// For more reference: https://mathiasbynens.be/notes/javascript-identifiers
+// this page discusses acceptable characters in more detail and has a
+// validator to make sure your variable is valid.
 
 // TODO: write three more assertions
 assert(variablify("one two three") === "oneTwoThree",
   "variablify(\"one two three\")");
+assert(variablify("And it is   time for TOYHL to fly") === "andItIsTimeForToyhlToFly",
+  "complex string with an all capital word");
+assert(variablify("Fred Flintstone and Barney Rubble") === "fredFlintstoneAndBarneyRubble", "lots of capital letters");
+assert(variablify("Friendship") === "friendship",
+  "one word string");
 
 //*********************************************************
 // PROBLEM 4: Cleanup: 10 points
