@@ -131,11 +131,16 @@ function sayHello (sb) {
     // of the listener (the sb parameter above).
     // use the 'hello' object at the beginning of this exercise
     // to do the translating
-console.log(this.language);
-console.log(sb.language);
-return (hello[language]); // why does this work? when hello.language does not?
+
+  // two variables for the speaker and the listener language values
+  var speakerLang = this.language;
+  var listenerLang = sb.language;
+  // prints the greeting in the speakers's language on the console
+  console.log(hello[speakerLang]);
+  // returns the greeting in the listener's language
+  return (hello[listenerLang]);
     //TODO: put this on the SentientBeing prototype
-  }
+}
 SentientBeing.prototype.sayHello = sayHello;
 
 // TODO: create three SentientBeings, one for each language in the
@@ -143,39 +148,22 @@ SentientBeing.prototype.sayHello = sayHello;
 
 // Created the 3 beings as subClasses/childClasses of SentientBeing
 // 1st - we create each being's constructor
-// 2nd - we set the being's prototype to a new instance of SentientBeing
+// 2nd - we set the being's prototype to a new instance of SentientBeing and pass in the home planet and language parameters
 // 3rd - we let the constructor know each being is that specific type of being
 function Klingon () {
-  homePlanet = "Qo\"nos";
-  language = "klingon";
-  // // how do I get this to happen inside sayHello?
 }
-Klingon.prototype = new SentientBeing();
+Klingon.prototype = new SentientBeing("Qo\"nos", "klingon");
 Klingon.prototype.constructor = Klingon;
+
 function Human () {
-  homePlanet = "Earth";
-  language = "federation standard";
-  //console.log();
 }
-Human.prototype = new SentientBeing();
+Human.prototype = new SentientBeing("Earth", "federation standard");
 Human.prototype.constructor = Human;
+
 function Romulan () {
-  homePlanet = "Romulus";
-  language = "romulan";
-  //console.log(hello[language]);
 }
-Romulan.prototype = new SentientBeing();
+Romulan.prototype = new SentientBeing("Romulus", "romulan");
 Romulan.prototype.constructor = Romulan;
-
-/*
-var klingon = new SentientBeing("Qo\"nos", "klingon"); // TODO: fix me
-var romulan = new SentientBeing("Romulus" , "romulan"); // TODO: fix me
-var human = new SentientBeing("Earth", "federation standard"); // TODO: fix me
-*/
-
-var test = new SentientBeing("Qo\"nos", "klingon");
-var test2 = new SentientBeing("Romulus" , "romulan");
-test.sayHello(test2);
 
 assert((new Human()).sayHello(new Klingon()) === "nuqneH",
   "the Klingon should hear nuqneH");
@@ -195,7 +183,8 @@ assert((new Klingon()).sayHello(new Romulan()) === "Jolan\"tru",
   "the Romulan should hear Jolan\"tru");
 
 // for the Romulan to say hello to the Human
-assert((new Romulan()).sayHello(new Human()) === "hello",
+assert((new Romulan(
+  )).sayHello(new Human()) === "hello",
   "the Human should hear hello");
 
 // for the Romulan to say hello to the Klingon
@@ -244,50 +233,13 @@ function variablify(string) {
   for (var j = 0; j < stringToArray.length; j++) {
     // conditional makes sure the first letter is lowerCase and all
     // successive "words" have the first letter capitalized
-    if (j !== 0) {
-      var firstLetterHolder = (stringToArray[j].charAt(0)).toUpperCase();
+    if (j === 0) {
+      stringToArray[j] = stringToArray[j].charAt(0) + stringToArray[j].slice(1, stringToArray[j].length);
     }else {
-      // if first character is a digit replaces it with the word instead
-      switch (stringToArray[j].charAt(0))
-      {
-        case "0": var firstLetterHolder = "zero";
-        break;
-
-        case "1": var firstLetterHolder = "one";
-        break;
-
-        case "2": var firstLetterHolder = "two";
-        break;
-
-        case "3": var firstLetterHolder = "three";
-        break;
-
-        case "4": var firstLetterHolder = "four";
-        break;
-
-        case "5": var firstLetterHolder = "five";
-        break;
-
-        case "6": var firstLetterHolder = "six";
-        break;
-
-        case "7": var firstLetterHolder = "seven";
-        break;
-
-        case "8": var firstLetterHolder = "eight";
-        break;
-
-        case "9": var firstLetterHolder = "nine";
-        break;
-
-        default: var firstLetterHolder = stringToArray[j].charAt(0);
-      }
+      stringToArray[j] = (stringToArray[j].charAt(0)).toUpperCase() + stringToArray[j].slice(1, stringToArray[j].length);
     }
-
-    // slices off the first character of the array element
-    // then adds the correctly cased letter back to front of element
-    stringToArray[j] = firstLetterHolder + stringToArray[j].slice(1, stringToArray[j].length);
   }
+
   // joins the array elements into the javascript variable name
   var variableFromString = stringToArray.join("");
   return variableFromString;
@@ -303,8 +255,8 @@ function variablify(string) {
 // TODO: write three more assertions
 assert(variablify("one two three") === "oneTwoThree",
   "variablify(\"one two three\")");
-assert(variablify("41 Alhambra lane") === "four1AlhambraLane",
-  "starts with a number");
+assert(variablify("And it is   time for TOYHL to fly") === "andItIsTimeForToyhlToFly",
+  "complex string with an all capital word");
 assert(variablify("Fred Flintstone and Barney Rubble") === "fredFlintstoneAndBarneyRubble", "lots of capital letters");
 assert(variablify("Friendship") === "friendship",
   "one word string");
