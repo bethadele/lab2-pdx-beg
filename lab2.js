@@ -260,6 +260,7 @@ assert(variablify("And it is   time for TOYHL to fly") === "andItIsTimeForToyhlT
 assert(variablify("Fred Flintstone and Barney Rubble") === "fredFlintstoneAndBarneyRubble", "lots of capital letters");
 assert(variablify("Friendship") === "friendship",
   "one word string");
+
 //*********************************************************
 // PROBLEM 4: Cleanup: 10 points
 // Makes sure this file passes jshint and jscs
