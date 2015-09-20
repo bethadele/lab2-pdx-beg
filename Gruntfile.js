@@ -5,7 +5,12 @@ module.exports = function(grunt) {
     jshint: {
       files: srcFiles,
       options: {
-        sub: true
+        sub: true,
+        node: true,
+        quotmark: "single",
+        globals: {
+          console: true
+        }
       }
     },
     jscs: {

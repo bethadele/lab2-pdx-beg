@@ -1,17 +1,10 @@
-/*********************************************************
-LAB 2: LOOPY SCI-FI
-
-Welcome to Lab 2 =)
-
-Be sure to read all the comments!
-
-All of the instructions are inline with the assignment below.
-Look for the word TODO in comments.  Each TODO will have a
-description of what is required.
-
-To run this file (in the terminal) use: node lab2.js
-
-*********************************************************/
+// LAB 2: LOOPY SCI-FI
+// Welcome to Lab 2 =)
+// Be sure to read all the comments!
+// All of the instructions are inline with the assignment below.
+// Look for the word TODO in comments.  Each TODO will have a
+// description of what is required.
+// To run this file (in the terminal) use: node lab2.js
 // SETUP
 //*********************************************************
 
@@ -19,7 +12,7 @@ To run this file (in the terminal) use: node lab2.js
 // test our code
 function assert(expression, failureMessage) {
   if (!expression) {
-    console.log("assertion failure: ", failureMessage);
+    console.log('assertion failure: ', failureMessage);
   }
 }
 
@@ -40,28 +33,51 @@ function assert(expression, failureMessage) {
         2          |       3/hour
         3          |       4/hour
 
- TODO: First, make a constructor function, called Blob, that makes blobs.
+ TODO: First, make a constructor function, called Blob, that makes blobs.*/
+function Blob(name) {
+  this.name = name;
+}
+/*
+ TODO: Next, create an instance of Blob named blob.*/
 
- TODO: Next, create an instance of Blob named blob.
+var blob = new Blob('blob');
+/*
 
  TODO: Then, use a loop to calculate how long it took the blob to finish
  with Dowington.
 */
 
-var hoursSpentInDowington; // TODO: assign me the value of the
-                           // above calculation
+var dowintonPop = 1000;
+var peoplePerHour = 0;
+var totalHours = 0;
+for (var i = 0; i < dowintonPop; i += peoplePerHour) {
+  peoplePerHour += 1;
+  totalHours += 1;
+}
+
+var hoursSpentInDowington = totalHours; // TODO: assign me the value of the
+// above calculation
 
 // Now, write a method that takes a population for an arbitrary
 // town, and the starting consumption rate, and returns the number
 // of hours the blob needs to ooze its way through that town.
+// TODO: implement me based on the instructions above. Be sure to then assign me to the Blob's prototype.
 
-function hoursToOoze(population, peoplePerHour) {
-  // TODO: implement me based on the instructions above. Be sure to then assign me to the Blob's prototype.
-}
+Blob.prototype.hoursToOoze = function hoursToOoze(population, peoplePerHour) {
+  this.population = population;
+  this.peoplePerHour = peoplePerHour;
+  var totalHours = 0;
+  var peopleEatenPerHour = 0;
+  for (var i = 0; i < population; i += peopleEatenPerHour) {
+    peopleEatenPerHour += peoplePerHour;
+    totalHours += 1;
+  }
+  return totalHours;
+};
 
-assert(blob.hoursToOoze(0, 1) === 0, "no people means no time needed.");
+assert(blob.hoursToOoze(0, 1) === 0, 'no people means no time needed.');
 assert(blob.hoursToOoze(1000, 1) === hoursSpentInDowington,
-  "hoursSpentInDowington should match hoursToOoze\"s result for 1000");
+  'hoursSpentInDowington should match hoursToOoze\'s result for 1000');
 // TODO: write three more assertions like the two above, testing out
 // the hoursToOoze method.
 
@@ -70,39 +86,38 @@ assert(blob.hoursToOoze(1000, 1) === hoursSpentInDowington,
 //*********************************************************
 
 var hello = {
-  klingon: "nuqneH",  // home planet is Qo"noS
-  romulan: "Jolan\"tru", // home planet is Romulus
-  "federation standard": "hello" // home planet is Earth
+  klingon: 'nuqneH', // home planet is Qo'noS
+  romulan: 'Jolan\'tru', // home planet is Romulus
+  'federation standard': 'hello' // home planet is Earth
 };
 
 // TODO: define a constructor that creates objects to represent
 // sentient beings. They have a home planet, a language that they
 // speak, and method called sayHello.
 
-function SentientBeing () {
-  // TODO: specify a home planet and a language
-  // you'll need to add parameters to this constructor
+function SentientBeing(homePlanet, language) {
+  this.homePlanet = homePlanet;
+  this.language = language;
 }
-
-// sb is a SentientBeing object
-function sayHello (sb) {
-    // TODO: say hello prints out (console.log's) hello in the
-    // language of the speaker, but returns it in the language
-    // of the listener (the sb parameter above).
-    // use the 'hello' object at the beginning of this exercise
-    // to do the translating
-
-    //TODO: put this on the SentientBeing prototype
-  }
+SentientBeing.prototype.sayHello = function sayHello(sb) {
+  console.log(hello[this.language]);
+  return hello[sb.language];
+};
 
 // TODO: create three SentientBeings, one for each language in the
 // 'hello' object above.
-var klingon = new SentientBeing(); // TODO: fix me
-var romulan = new SentientBeing(); // TODO: fix me
-var human = new SentientBeing(); // TODO: fix me
 
-assert((new Human()).sayHello(new Klingon()) === "nuqneH",
-  "the klingon should hear nuqneH");
+var klingon = new SentientBeing('Qo\'noS', 'klingon'); // TODO: fix me
+var romulan = new SentientBeing('Romulus', 'romulan'); // TODO: fix me
+var human = new SentientBeing('Earth', 'federation standard'); // TODO: fix me
+
+assert(human.sayHello(klingon) === 'nuqneH', 'the klingon should hear nuqneH');
+assert(human.sayHello(romulan) === 'Jolan\'tru', 'the romulan should hear Jolan\'tru');
+assert(romulan.sayHello(klingon) === 'nuqneH', 'the klingon should hear nuqneH');
+assert(romulan.sayHello(human) === 'hello', 'the human should hear hello');
+assert(klingon.sayHello(romulan) === 'Jolan\'tru', 'the romulan should hear Jolan\'tru');
+assert(klingon.sayHello(human) === 'hello', 'the human should hear hello');
+
 // TODO: write five more assertions, to complete all the possible
 // greetings between the three types of sentient beings you created above.
 
@@ -113,25 +128,29 @@ assert((new Human()).sayHello(new Klingon()) === "nuqneH",
 // assertions for each one
 //*********************************************************
 function max(array) {
-  // TODO: return the largest number in the given array
+  return Math.max.apply(null, array);
 }
 
 // TODO: write three more assertions
-assert(max([ 1, 3, 2 ]) === 3, "[1,3,2]");
+assert(max([ 1, 3, 2 ]) === 3, '[1,3,2]');
+assert(max([ 5, 9, 8, 3 ]) === 9, 'max should be nine');
+assert(max([ -1, -5, 3 ]) === 3, 'max should be three');
+assert(max([ 4, 2, 6 ]) === 6, 'max should be six');
 
 function variablify(string) {
-  // TODO: you are given a string with several words in it
-  // return a corresponding variable name that follows
-  // javascript conventions
-  // HINT:
-  // you might want to use these string methods:
-  //  split(), charAt(), toUpperCase()
-  // and this array method: join()
+  var words = string.split(' ');
+  for (var i = 1; i < words.length; i++) {
+    words[i] = words[i].charAt(0).toUpperCase() + words[i].substr(1);
+  }
+  return words.join('');
 }
 
 // TODO: write three more assertions
-assert(variablify("one two three") === "oneTwoThree",
-  "variablify(\"one two three\")");
+assert(variablify('one two three') === 'oneTwoThree',
+  'variablify(\'one two three\')');
+assert(variablify('four five six') === 'fourFiveSix', 'not correct');
+assert(variablify('seven eight nine') === 'sevenEightNine', 'not correct');
+assert(variablify('ten eleven twelve') === 'tenElevenTwelve', 'not correct');
 
 //*********************************************************
 // PROBLEM 4: Cleanup: 10 points

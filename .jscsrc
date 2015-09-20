@@ -3,6 +3,8 @@
   "requireDotNotation": null,
   "requireMultipleVarDecl": null,
   "disallowMultipleVarDecl": null,
-  "maximumLineLength": null
+  "maximumLineLength": null,
+  "validateQuoteMarks": "'",
+  "validateLineBreaks": null
 }
 
